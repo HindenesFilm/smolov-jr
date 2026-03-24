@@ -354,6 +354,32 @@ footer {
   max-width: 100%;
 }
 
+/* ── Fade-in animations ── */
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.anim {
+  opacity: 0;
+  animation: fadeDown 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+header         { animation-delay: 0.0s; }
+.hero-eyebrow  { animation-delay: 0.15s; }
+.hero h1       { animation-delay: 0.28s; }
+.hero-desc     { animation-delay: 0.42s; }
+.calc-section  { animation-delay: 0.55s; }
+.info-section  { animation-delay: 0.70s; }
+.results-section { animation-delay: 0.85s; }
+footer         { animation-delay: 1.00s; }
+
 /* ── Responsive tweaks ── */
 @media (max-width: 768px) {
   header { padding: 20px 24px; }
@@ -366,7 +392,7 @@ footer {
 <body>
 
 <!-- Header -->
-<header>
+<header class="anim">
   <a class="header-logo" href="#">
     <!-- HF Logo SVG -->
     <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -417,16 +443,16 @@ footer {
 
 <!-- Hero -->
 <section class="hero">
-  <div class="hero-eyebrow">Styrkeprogram</div>
-  <h1>Smolov<br>Jr<em>.</em></h1>
-  <p class="hero-desc">
+  <div class="hero-eyebrow anim">Styrkeprogram</div>
+  <h1 class="anim">Smolov<br>Jr<em>.</em></h1>
+  <p class="hero-desc anim">
     Et 3-ukers intensivt styrkeprogram med høyt volum og progressiv overbelastning.
     Tast inn din 1RM og kalkulator genererer treningsvektene for hele syklusen.
   </p>
 </section>
 
 <!-- Calculator inputs -->
-<section class="calc-section">
+<section class="calc-section anim">
   <div class="section-label">Kalkulator</div>
   <div class="calc-card">
     <div class="field">
@@ -440,34 +466,8 @@ footer {
   </div>
 </section>
 
-<!-- Info cards -->
-<section class="info-section">
-  <div class="info-card benefits">
-    <h3>Fordeler</h3>
-    <ul class="info-list">
-      <li>Rask styrkeøkning – typisk 10–20 kg økning i 1RM på 3 uker ved konsekvent gjennomføring</li>
-      <li>Høyt treningsvolum utvikler nevromuskulær tilpasning og muskulær utholdenhet</li>
-      <li>Progressiv overbelastning er innebygd i programmet – automatisk økning uke for uke</li>
-      <li>Effektivt for erfarne løftere som har stagnert og trenger ny stimulus</li>
-      <li>Relativt kort varighet gjør det lettere å holde motivasjonen oppe gjennom hele blokken</li>
-      <li>Dokumentert effekt på benkpress, knebøy og markløft</li>
-    </ul>
-  </div>
-  <div class="info-card warning">
-    <h3>⚠ Skaderisiko</h3>
-    <ul class="info-list">
-      <li>Dette er et avansert program – ikke anbefalt for nybegynnere. Krev solid teknisk grunnlag</li>
-      <li>Svært høy volum og intensitet øker risikoen for overbelastningsskader i sener og ledd</li>
-      <li>Kombiner ikke med annet tung styrketrening i de samme muskelgruppene</li>
-      <li>Sørg for tilstrekkelig søvn og ernæring – restitusjonen er kritisk ved dette volumet</li>
-      <li>Stopp umiddelbart ved skarpe smerter eller ubehag utover vanlig treningsømhet</li>
-      <li>Konsulter lege eller fysioterapeut dersom du har eksisterende skader eller helseproblemer</li>
-    </ul>
-  </div>
-</section>
-
 <!-- Results tables -->
-<section class="results-section">
+<section class="results-section anim">
   <div class="section-label">Treningsplan</div>
 
   <!-- Week 1 -->
@@ -543,7 +543,33 @@ footer {
   </div>
 </section>
 
-<footer>
+<!-- Info cards -->
+<section class="info-section anim">
+  <div class="info-card benefits">
+    <h3>Fordeler</h3>
+    <ul class="info-list">
+      <li>Rask styrkeøkning – typisk 10–20 kg økning i 1RM på 3 uker ved konsekvent gjennomføring</li>
+      <li>Høyt treningsvolum utvikler nevromuskulær tilpasning og muskulær utholdenhet</li>
+      <li>Progressiv overbelastning er innebygd i programmet – automatisk økning uke for uke</li>
+      <li>Effektivt for erfarne løftere som har stagnert og trenger ny stimulus</li>
+      <li>Relativt kort varighet gjør det lettere å holde motivasjonen oppe gjennom hele blokken</li>
+      <li>Dokumentert effekt på benkpress, knebøy og markløft</li>
+    </ul>
+  </div>
+  <div class="info-card warning">
+    <h3>⚠ Skaderisiko</h3>
+    <ul class="info-list">
+      <li>Dette er et avansert program – ikke anbefalt for nybegynnere. Krev solid teknisk grunnlag</li>
+      <li>Svært høy volum og intensitet øker risikoen for overbelastningsskader i sener og ledd</li>
+      <li>Kombiner ikke med annet tung styrketrening i de samme muskelgruppene</li>
+      <li>Sørg for tilstrekkelig søvn og ernæring – restitusjonen er kritisk ved dette volumet</li>
+      <li>Stopp umiddelbart ved skarpe smerter eller ubehag utover vanlig treningsømhet</li>
+      <li>Konsulter lege eller fysioterapeut dersom du har eksisterende skader eller helseproblemer</li>
+    </ul>
+  </div>
+</section>
+
+<footer class="anim">
   <span>Hindenes Film og Foto</span>
   <span>hindenesfilm.no</span>
 </footer>
