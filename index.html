@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smolov Jr. Kalkulator – Hindenes Film og Foto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ── Reset & base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --night-forest:  #0a0a0a;
+  --forest-mid:    #141414;
+  --forest-light:  #1c1c1c;
+  --viridian:      #555;
+  --tangerine:     #e8001c;
+  --white:         #FFFFFF;
+  --platinum:      #F4F4F5;
+  --muted:         rgba(244,244,245,0.5);
+  --border:        rgba(255,255,255,0.08);
+  --danger:        #e8001c;
+  --font-display:  'Big Shoulders Display', 'Arial Black', sans-serif;
+  --font-mono:     'Roboto Mono', 'Courier New', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--night-forest);
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ── Header ── */
+header {
+  border-bottom: 1px solid var(--border);
+  padding: 24px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+}
+
+.header-logo svg { width: 44px; height: 44px; flex-shrink: 0; }
+
+.header-brand {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1.1;
+}
+.header-brand span { color: var(--tangerine); }
+
+.header-tag {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Hero ── */
+.hero {
+  padding: 80px 48px 64px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--tangerine);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 10vw, 128px);
+  font-weight: 900;
+  line-height: 0.92;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  margin-bottom: 24px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: var(--tangerine);
+}
+
+.hero-desc {
+  max-width: 560px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+  letter-spacing: 0.5px;
+}
+
+/* ── Calculator section ── */
+.calc-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 48px 80px;
+}
+
+.section-label {
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--viridian);
+  font-weight: 700;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.calc-card {
+  background: var(--forest-mid);
+  border: 1px solid var(--border);
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 64px;
+}
+
+@media (max-width: 640px) {
+  .calc-card { grid-template-columns: 1fr; }
+}
+
+.field label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.field input {
+  width: 100%;
+  background: var(--forest-light);
+  border: 1px solid var(--border);
+  border-bottom: 2px solid var(--viridian);
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: 700;
+  padding: 14px 18px;
+  outline: none;
+  transition: border-color .2s, background .2s;
+  -moz-appearance: textfield;
+}
+.field input::-webkit-outer-spin-button,
+.field input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.field input:focus {
+  border-bottom-color: var(--tangerine);
+  background: #1a4a38;
+}
+.field input::placeholder { color: rgba(244,244,245,0.2); }
+
+/* ── Info section ── */
+.info-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 48px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .info-section { grid-template-columns: 1fr; }
+}
+
+.info-card {
+  padding: 36px;
+  border: 1px solid var(--border);
+}
+
+.info-card.benefits { border-left: 3px solid var(--viridian); }
+.info-card.warning  { border-left: 3px solid var(--danger); }
+
+.info-card h3 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+.info-card.benefits h3 { color: var(--viridian); }
+.info-card.warning  h3 { color: var(--danger); }
+
+.info-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-list li {
+  display: flex;
+  gap: 12px;
+  color: rgba(244,244,245,0.75);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.info-list li::before {
+  content: '—';
+  flex-shrink: 0;
+  font-weight: 700;
+}
+.info-card.benefits .info-list li::before { color: var(--viridian); }
+.info-card.warning  .info-list li::before { color: var(--danger); }
+
+/* ── Results ── */
+.results-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 48px 80px;
+}
+
+.week-block {
+  margin-bottom: 48px;
+}
+
+.week-heading {
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  line-height: 1;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.week-heading .num { color: var(--tangerine); }
+.week-heading .increment-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--viridian);
+  border: 1px solid var(--viridian);
+  padding: 3px 10px;
+  text-transform: uppercase;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+}
+
+thead tr {
+  background: var(--forest-light);
+  border-bottom: 1px solid var(--viridian);
+}
+
+thead th {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  padding: 14px 20px;
+  text-align: left;
+}
+
+thead th:first-child { width: 28%; }
+thead th:not(:first-child) { text-align: center; }
+
+tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background .15s;
+}
+tbody tr:hover { background: var(--forest-mid); }
+
+tbody td, tbody th {
+  padding: 16px 20px;
+  font-size: 14px;
+}
+
+tbody th {
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--platinum);
+  text-align: left;
+  font-family: var(--font-mono);
+}
+
+tbody td {
+  text-align: center;
+  color: rgba(244,244,245,0.7);
+}
+
+.td-weight {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--white) !important;
+}
+
+.td-weight::after { content: ' kg'; font-size: 11px; color: var(--muted); font-weight: 400; }
+.td-weight:empty::after { content: '—'; font-size: 14px; color: rgba(244,244,245,.2); }
+.td-weight:empty { font-size: 14px; }
+
+/* day accent colors */
+.day-mon { border-left: 2px solid var(--tangerine); }
+.day-wed { border-left: 2px solid rgba(245,130,32,0.6); }
+.day-fri { border-left: 2px solid rgba(245,130,32,0.35); }
+.day-sat { border-left: 2px solid rgba(245,130,32,0.15); }
+
+/* ── Footer ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgba(244,244,245,0.3);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  max-width: 100%;
+}
+
+/* ── Responsive tweaks ── */
+@media (max-width: 768px) {
+  header { padding: 20px 24px; }
+  .hero, .calc-section, .results-section, .info-section { padding-left: 24px; padding-right: 24px; }
+  .hero { padding-top: 48px; padding-bottom: 40px; }
+  footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <a class="header-logo" href="#">
+    <!-- HF Logo SVG -->
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="hl"><polygon points="41,66 100,100 100,168 41,134"/></clipPath>
+        <clipPath id="hr"><polygon points="100,100 159,66 159,134 100,168"/></clipPath>
+        <clipPath id="ht"><polygon points="100,32 159,66 100,100 41,66"/></clipPath>
+      </defs>
+      <polygon points="41,66 100,100 100,168 41,134" fill="#1c1c1c"/>
+      <polygon points="100,100 159,66 159,134 100,168" fill="#141414"/>
+      <polygon points="100,32 159,66 100,100 41,66" fill="#e4e4e4"/>
+      <g clip-path="url(#hl)">
+        <g transform="matrix(59,34,0,68,41,66)">
+          <rect x=".08" y=".08" width=".23" height=".84" fill="white"/>
+          <rect x=".69" y=".08" width=".23" height=".84" fill="white"/>
+          <rect x=".08" y=".37" width=".84" height=".26" fill="white"/>
+        </g>
+      </g>
+      <g clip-path="url(#hr)">
+        <g transform="matrix(59,-34,0,68,100,100)">
+          <rect x=".08" y=".08" width=".23" height=".84" fill="white"/>
+          <rect x=".08" y=".08" width=".84" height=".24" fill="white"/>
+          <rect x=".08" y=".41" width=".58" height=".22" fill="white"/>
+        </g>
+      </g>
+      <g clip-path="url(#ht)">
+        <g transform="matrix(59,34,-59,34,100,32)">
+          <polyline points=".32,.13 .13,.13 .13,.32" fill="none" stroke="#111" stroke-width=".08" stroke-linecap="square"/>
+          <polyline points=".68,.13 .87,.13 .87,.32" fill="none" stroke="#111" stroke-width=".08" stroke-linecap="square"/>
+          <polyline points=".87,.68 .87,.87 .68,.87" fill="none" stroke="#111" stroke-width=".08" stroke-linecap="square"/>
+          <polyline points=".13,.68 .13,.87 .32,.87" fill="none" stroke="#111" stroke-width=".08" stroke-linecap="square"/>
+          <circle cx=".5" cy=".5" r=".22" fill="#e8001c"/>
+        </g>
+      </g>
+      <line x1="100" y1="32" x2="100" y2="100" stroke="white" stroke-width="3"/>
+      <line x1="41" y1="66" x2="100" y2="100" stroke="white" stroke-width="3"/>
+      <line x1="159" y1="66" x2="100" y2="100" stroke="white" stroke-width="3"/>
+      <line x1="100" y1="100" x2="100" y2="168" stroke="white" stroke-width="2.5"/>
+      <polygon points="100,32 159,66 159,134 100,168 41,134 41,66" fill="none" stroke="white" stroke-width="2.5"/>
+      <polygon points="100,32 159,66 159,134 100,168 41,134 41,66" fill="none" stroke="#06211A" stroke-width="6" stroke-linejoin="miter" style="paint-order:stroke"/>
+    </svg>
+    <div>
+      <div class="header-brand">Hindenes<br>Film og Foto<span>.</span></div>
+    </div>
+  </a>
+  <div class="header-tag">Treningsverktøy</div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-eyebrow">Styrkeprogram</div>
+  <h1>Smolov<br>Jr<em>.</em></h1>
+  <p class="hero-desc">
+    Et 3-ukers intensivt styrkeprogram med høyt volum og progressiv overbelastning.
+    Tast inn din 1RM og kalkulator genererer treningsvektene for hele syklusen.
+  </p>
+</section>
+
+<!-- Calculator inputs -->
+<section class="calc-section">
+  <div class="section-label">Kalkulator</div>
+  <div class="calc-card">
+    <div class="field">
+      <label for="oneRepMax">1 Rep Maks (kg)</label>
+      <input type="number" id="oneRepMax" placeholder="f.eks. 100" min="1">
+    </div>
+    <div class="field">
+      <label for="increment">Økning per uke (kg)</label>
+      <input type="number" id="increment" step="any" value="2.5" min="0">
+    </div>
+  </div>
+</section>
+
+<!-- Info cards -->
+<section class="info-section">
+  <div class="info-card benefits">
+    <h3>Fordeler</h3>
+    <ul class="info-list">
+      <li>Rask styrkeøkning – typisk 10–20 kg økning i 1RM på 3 uker ved konsekvent gjennomføring</li>
+      <li>Høyt treningsvolum utvikler nevromuskulær tilpasning og muskulær utholdenhet</li>
+      <li>Progressiv overbelastning er innebygd i programmet – automatisk økning uke for uke</li>
+      <li>Effektivt for erfarne løftere som har stagnert og trenger ny stimulus</li>
+      <li>Relativt kort varighet gjør det lettere å holde motivasjonen oppe gjennom hele blokken</li>
+      <li>Dokumentert effekt på benkpress, knebøy og markløft</li>
+    </ul>
+  </div>
+  <div class="info-card warning">
+    <h3>⚠ Skaderisiko</h3>
+    <ul class="info-list">
+      <li>Dette er et avansert program – ikke anbefalt for nybegynnere. Krev solid teknisk grunnlag</li>
+      <li>Svært høy volum og intensitet øker risikoen for overbelastningsskader i sener og ledd</li>
+      <li>Kombiner ikke med annet tung styrketrening i de samme muskelgruppene</li>
+      <li>Sørg for tilstrekkelig søvn og ernæring – restitusjonen er kritisk ved dette volumet</li>
+      <li>Stopp umiddelbart ved skarpe smerter eller ubehag utover vanlig treningsømhet</li>
+      <li>Konsulter lege eller fysioterapeut dersom du har eksisterende skader eller helseproblemer</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Results tables -->
+<section class="results-section">
+  <div class="section-label">Treningsplan</div>
+
+  <!-- Week 1 -->
+  <div class="week-block">
+    <div class="week-heading">
+      Uke <span class="num">01</span>
+      <span class="increment-badge" id="badge-w1">+0 kg</span>
+    </div>
+    <table id="table-w1">
+      <thead>
+        <tr>
+          <th>Dag</th>
+          <th>Sett</th>
+          <th>Reps</th>
+          <th>Vekt</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="day-mon"><th>Mandag</th><td>6</td><td>6</td><td class="td-weight weight"></td></tr>
+        <tr class="day-wed"><th>Onsdag</th><td>7</td><td>5</td><td class="td-weight weight"></td></tr>
+        <tr class="day-fri"><th>Fredag</th><td>8</td><td>4</td><td class="td-weight weight"></td></tr>
+        <tr class="day-sat"><th>Lørdag</th><td>10</td><td>3</td><td class="td-weight weight"></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Week 2 -->
+  <div class="week-block">
+    <div class="week-heading">
+      Uke <span class="num">02</span>
+      <span class="increment-badge" id="badge-w2">+0 kg</span>
+    </div>
+    <table id="table-w2">
+      <thead>
+        <tr>
+          <th>Dag</th>
+          <th>Sett</th>
+          <th>Reps</th>
+          <th>Vekt</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="day-mon"><th>Mandag</th><td>6</td><td>6</td><td class="td-weight weight"></td></tr>
+        <tr class="day-wed"><th>Onsdag</th><td>7</td><td>5</td><td class="td-weight weight"></td></tr>
+        <tr class="day-fri"><th>Fredag</th><td>8</td><td>4</td><td class="td-weight weight"></td></tr>
+        <tr class="day-sat"><th>Lørdag</th><td>10</td><td>3</td><td class="td-weight weight"></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Week 3 -->
+  <div class="week-block">
+    <div class="week-heading">
+      Uke <span class="num">03</span>
+      <span class="increment-badge" id="badge-w3">+0 kg</span>
+    </div>
+    <table id="table-w3">
+      <thead>
+        <tr>
+          <th>Dag</th>
+          <th>Sett</th>
+          <th>Reps</th>
+          <th>Vekt</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="day-mon"><th>Mandag</th><td>6</td><td>6</td><td class="td-weight weight"></td></tr>
+        <tr class="day-wed"><th>Onsdag</th><td>7</td><td>5</td><td class="td-weight weight"></td></tr>
+        <tr class="day-fri"><th>Fredag</th><td>8</td><td>4</td><td class="td-weight weight"></td></tr>
+        <tr class="day-sat"><th>Lørdag</th><td>10</td><td>3</td><td class="td-weight weight"></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <span>Hindenes Film og Foto</span>
+  <span>hindenesfilm.no</span>
+</footer>
+
+<script>
+const PERCENTAGES = [0.70, 0.75, 0.80, 0.85];
+const oneRepMaxEl = document.getElementById('oneRepMax');
+const incrementEl = document.getElementById('increment');
+
+function roundTo(val, step) {
+  return step * Math.floor(val / step + 0.5);
+}
+
+function calculate() {
+  const orm = parseFloat(oneRepMaxEl.value);
+  const inc = parseFloat(incrementEl.value) || 2.5;
+
+  const allWeights = document.querySelectorAll('.td-weight');
+  allWeights.forEach(el => { el.textContent = ''; });
+
+  for (let w = 0; w < 3; w++) {
+    const badge = document.getElementById('badge-w' + (w + 1));
+    badge.textContent = '+' + (inc * w).toFixed(1).replace('.0','') + ' kg';
+    badge.style.color   = 'var(--tangerine)';
+    badge.style.borderColor = 'var(--tangerine)';
+
+    if (!orm || orm <= 0) continue;
+
+    const rows = document.querySelectorAll('#table-w' + (w + 1) + ' tbody tr');
+    rows.forEach((row, i) => {
+      const base = roundTo(PERCENTAGES[i] * orm, 2.5);
+      const wt   = base + inc * w;
+      row.querySelector('.weight').textContent = wt % 1 === 0 ? wt : wt.toFixed(1);
+    });
+  }
+}
+
+oneRepMaxEl.addEventListener('input', calculate);
+incrementEl.addEventListener('input', calculate);
+calculate();
+</script>
+</body>
+</html>
